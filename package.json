@@ -14,6 +14,7 @@
     "build"
   ],
   "license": "ISC",
+  "repository": "nicferrier/npm-common2es6",
   "dependencies": {
     "acorn": "^6.1.1",
     "escodegen": "^1.11.1"

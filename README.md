@@ -38,7 +38,7 @@ The rest I will simply write in ES6 style.
 Well, here we go:
 
 ```
-$ npm install -g common2es6
+$ npm install -g @nicferrier/common2es6
 $ common2es6
 common2es6 -- transform a commonjs file into an ES6 file
 

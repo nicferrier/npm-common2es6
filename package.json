@@ -1,6 +1,6 @@
 {
   "name": "@nicferrier/common2es6",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Automatically convert simple CommonJS scripts to ES6 modules.",
   "main": "index.js",
   "bin": {

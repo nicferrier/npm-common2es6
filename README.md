@@ -81,6 +81,15 @@ function myFunc() {
 export default myFunc;
 ```
 
+You can also generate multiple ES6 files at the same time:
+
+```
+$ common2es6 write test.js test2.js
+test.mjs
+test2.mjs
+```
+
+
 The other commands might be useful because this is a very early thing
 and probably full of bugs.
 

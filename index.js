@@ -126,18 +126,20 @@ const passSource = async function (file) {
     return escodegen.generate(tree);
 };
 
-const write = async function (file) {
-    const transformedSource = await es6_Transform(file);
-    const parts = path.parse(file);
-    let {dir, root, base, name, ext} = parts;
-    ext = ".mjs";
-    const targetFile =
-          root
-          + dir
-          + ((dir.length === 0) ? name : path.sep + name)
-          + ext;
-    await fs.promises.writeFile(targetFile, transformedSource, "utf8");
-    return targetFile + "\n";
+const write = async function (files) {
+    return Promise.all(files.map(async file => {
+        const transformedSource = await es6_Transform(file);
+        const parts = path.parse(file);
+        let {dir, root, base, name, ext} = parts;
+        ext = ".mjs";
+        const targetFile =
+              root
+              + dir
+              + ((dir.length === 0) ? name : path.sep + name)
+              + ext;
+        await fs.promises.writeFile(targetFile, transformedSource, "utf8");
+        return targetFile;
+    })).then(out => out.join("\n") + "\n");
 }
 
 if (require.main === module) {
@@ -154,7 +156,7 @@ if (require.main === module) {
         promise = passSource(inputFileArg);
         break;
     case "write":
-        promise = write(inputFileArg);
+        promise = write(process.argv.slice(3));
         break;
     default:
         promise = Promise.resolve(`common2es6 -- transform a commonjs file into an ES6 file

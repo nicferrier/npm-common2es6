@@ -25,6 +25,8 @@ async function traverse(node, func) {
     }
 }
 
+const jsRequireNameRegex = new RegExp("(.*)\\.js$");
+
 const es6_Transform = async function (file) {
     const text = await fs.promises.readFile(file);
     const tree = acorn.parse(text);
@@ -96,10 +98,11 @@ const es6_Transform = async function (file) {
                     name: requireIdentifier
                 }
             }];
+            const importName = requireSource.replace(jsRequireNameRegex,"$1.mjs");
             node.source = {
                 type: "Literal",
-                value: requireSource,
-                raw: requireSourceRaw
+                value: importName,
+                raw: JSON.stringify(importName)
             };
         }
     });

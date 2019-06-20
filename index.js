@@ -77,6 +77,7 @@ const es6_Transform = async function (file) {
 
         if (node.type === "VariableDeclaration"
             && node.declarations[0].type === "VariableDeclarator"
+            && node.declarations[0].init != null
             && node.declarations[0].init.type === "CallExpression"
             && node.declarations[0].init.callee.type === "Identifier"
             && node.declarations[0].init.callee.name === "require"
